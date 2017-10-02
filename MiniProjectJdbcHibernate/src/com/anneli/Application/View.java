@@ -1,9 +1,7 @@
 package com.anneli.Application;
 
-import java.util.List;
 import java.util.Scanner;
 
-import com.anneli.entity.Serie;
 import com.anneli.repository.CategoryRepository;
 import com.anneli.repository.CategoryRepositoryI;
 import com.anneli.repository.SerieRepository;

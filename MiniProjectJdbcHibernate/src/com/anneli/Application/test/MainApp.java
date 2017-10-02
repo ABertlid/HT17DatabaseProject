@@ -1,4 +1,4 @@
-package com.anneli.Application;
+package com.anneli.Application.test;
 
 import java.util.List;
 import java.util.logging.Level;
