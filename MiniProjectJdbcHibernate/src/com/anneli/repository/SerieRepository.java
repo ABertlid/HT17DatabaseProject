@@ -80,6 +80,7 @@ public class SerieRepository implements SerieRepositoryI {
 			session.save(tempSerie);
 			session.getTransaction().commit();
 			close(session);
+			
 		} catch (HibernateException ex) {
 			throw new HibernateException("ERROR " + ex.getStackTrace());
 		}
