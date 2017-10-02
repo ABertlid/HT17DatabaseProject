@@ -23,7 +23,6 @@ public class View {
 		System.out.println("4. Delete data in database? ");
 		System.out.println("5. Search for serie in database? ");
 		System.out.println("6. Search for category and series in database? ");
-		System.out.println("7. Do some fancy stuff?\n ");
 		
 		String choice = scan.nextLine();
 		
@@ -75,12 +74,6 @@ public class View {
 			CategoryRepositoryI categoryRepositorySearchSerie = new CategoryRepository();
 			categoryRepositorySearchSerie.searchSerieByCategory(userData);
 			scan.close();
-			break;
-			
-		case "7":
-			System.out.println("---PROCEDURE---");
-			SerieRepositoryI serieRepositoryProc = new SerieRepository();
-			serieRepositoryProc.getProcedure();
 			break;
 			
 		default:			

@@ -2,12 +2,11 @@ package com.anneli.repository;
 
 import java.util.List;
 
-import javax.persistence.Entity;
+import javax.persistence.StoredProcedureQuery;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.NativeQuery;
 
 import com.anneli.entity.Category;
 import com.anneli.entity.Rating;
@@ -48,15 +47,19 @@ public class SerieRepository implements SerieRepositoryI {
 					.openSession();
 
 			session.beginTransaction();
+
+			StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
+
+			allSeries.execute();
+			List<Serie> series = allSeries.getResultList();
 			
-
-			List<Serie> theSeries = session.createQuery("from Serie").getResultList();
-
-			displaySerie(theSeries);
+			displaySerie(series);
+			
 			session.getTransaction().commit();
 			close(session);
 
-			return theSeries;
+			return series;
+
 		} catch (HibernateException ex) {
 			throw new HibernateException("ERROR " + ex.getStackTrace());
 		}
@@ -111,7 +114,7 @@ public class SerieRepository implements SerieRepositoryI {
 					.openSession();
 
 			session.beginTransaction();
-			
+
 			String searchIndex = userInput + "%";
 
 			String query = "from Serie where title LIKE :title";
@@ -132,38 +135,10 @@ public class SerieRepository implements SerieRepositoryI {
 
 	}
 
-	public void getProcedure(){
-		
-		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Serie.class)
-					.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
-
-			session.beginTransaction();
-			
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			String theProcedure = session.createNativeQuery("CALL all_series()")
-			.addEntity(Serie.class).getQueryString();
-			System.out.println(theProcedure);
-			//displayProcedure(theProcedure);
-			session.getTransaction().commit();
-			close(session);
-
-			
-		} catch (HibernateException ex) {
-			throw new HibernateException("ERROR " + ex.getStackTrace());
-		}
-		
-	}
 	private void displaySerie(List<Serie> theSeries) {
 
 		for (Serie tempSerie : theSeries) {
 			System.out.println(tempSerie);
-		}
-	}
-	private void displayProcedure(List<Serie> theProcedure) {
-		for (Serie procedure : theProcedure) {
-			System.out.println(Entity.class.getName() + procedure);
 		}
 	}
 

@@ -11,5 +11,4 @@ public interface SerieRepositoryI {
 	void add(String uString);
 	void delete(int uInt);
 	List <Serie> searchSerie(String uString);	
-	void getProcedure();
 }
