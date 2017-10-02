@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-public class Category implements Serializable{
+public class Category implements Serializable {
 	private static final long serialVersionUID = 7687175411398320073L;
 
 	@Id
@@ -24,8 +24,8 @@ public class Category implements Serializable{
 
 	@Column(name = "type")
 	private String type;
-	
-	@OneToMany(mappedBy ="myConnect",  fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "myConnect", fetch = FetchType.EAGER)
 	private List<Serie> series;
 
 	public Category() {
@@ -51,7 +51,7 @@ public class Category implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public List<Serie> getSeries() {
 		return series;
 	}
@@ -62,9 +62,7 @@ public class Category implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Category " + series.toString()+ "";
+		return "Category " + series.toString() + "";
 	}
-
-
 
 }

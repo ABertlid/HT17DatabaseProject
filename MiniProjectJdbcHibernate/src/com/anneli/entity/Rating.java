@@ -24,10 +24,10 @@ public class Rating implements Serializable {
 
 	@Column(name = "rating")
 	private double rating;
-	
-	@OneToMany(mappedBy ="myEvaluate", fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "myEvaluate", fetch = FetchType.EAGER)
 	private List<Serie> series;
-	
+
 	public Rating() {
 
 	}

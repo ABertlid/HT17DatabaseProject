@@ -29,20 +29,18 @@ public class Serie implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category myConnect;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "rating_id")
 	private Rating myEvaluate;
-	
 
 	public Serie() {
 
 	}
-	
+
 	public Serie(String title) {
 		this.title = title;
 	}
-
 
 	public int getSerieId() {
 		return serieId;
@@ -59,7 +57,7 @@ public class Serie implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public Category getMyConnect() {
 		return myConnect;
 	}
@@ -70,9 +68,9 @@ public class Serie implements Serializable {
 
 	@Override
 	public String toString() {
-		String result = String.format("%1$-5s %2$-30s %3$-20s %4$s", serieId, title, myConnect.getType(), myEvaluate.getRating());
+		String result = String.format("%1$-5s %2$-30s %3$-20s %4$s", serieId, title, myConnect.getType(),
+				myEvaluate.getRating());
 		return result;
 	}
 
-	
 }

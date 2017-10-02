@@ -52,8 +52,7 @@ public class CategoryRepository implements CategoryRepositoryI {
 
 		try {
 			Session session = new Configuration().configure().addAnnotatedClass(Category.class)
-					.addAnnotatedClass(Serie.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
+					.addAnnotatedClass(Serie.class).addAnnotatedClass(Rating.class).buildSessionFactory().openSession();
 
 			session.beginTransaction();
 

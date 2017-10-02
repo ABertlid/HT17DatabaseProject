@@ -52,9 +52,9 @@ public class SerieRepository implements SerieRepositoryI {
 
 			allSeries.execute();
 			List<Serie> series = allSeries.getResultList();
-			
+
 			displaySerie(series);
-			
+
 			session.getTransaction().commit();
 			close(session);
 
