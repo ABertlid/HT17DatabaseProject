@@ -25,68 +25,72 @@ public class View {
 		System.out.println("7. Exit ");
 
 		String choiceFromUser = scan.nextLine();
-		
+
 		choice(choiceFromUser);
 
 	}
 
 	public void choice(String action) {
+		boolean isRunning = true;
 
-		switch (action) {
-		case "1":
-			System.out.println("Add serie : ");
-			userData = scan.nextLine();
-			SerieRepositoryI serieRepositoryCreate = new SerieRepository();
-			serieRepositoryCreate.add(userData);
-			scan.close();
-			break;
+		while (isRunning) {
+			switch (action) {
+			case "1":
+				System.out.println("Add serie : ");
+				userData = scan.nextLine();
+				SerieRepositoryI serieRepositoryCreate = new SerieRepository();
+				serieRepositoryCreate.add(userData);
+				startMenu();
+				break;
 
-		case "2":
-			System.out.println("Displaying the complete database (procedure)\n\n");
-			SerieRepositoryI serieRepositoryRead = new SerieRepository();
-			serieRepositoryRead.getAll();
-			break;
+			case "2":
+				System.out.println("Displaying the complete database (procedure)\n\n");
+				SerieRepositoryI serieRepositoryRead = new SerieRepository();
+				serieRepositoryRead.getAll();
+				startMenu();
+				break;
 
-		case "3":
-			System.out.println("Add serie_ID you want to update : ");
-			userDataInt = scan.nextInt();
-			System.out.println("Add new serie name : ");
-			scan.nextLine();
-			userData = scan.nextLine();
-			SerieRepositoryI serieRepositoryUpdate = new SerieRepository();
-			serieRepositoryUpdate.get(userDataInt, userData);
-			scan.close();
-			break;
+			case "3":
+				System.out.println("Add serie_ID you want to update : ");
+				userDataInt = scan.nextInt();
+				System.out.println("Add new serie name : ");
+				scan.nextLine();
+				userData = scan.nextLine();
+				SerieRepositoryI serieRepositoryUpdate = new SerieRepository();
+				serieRepositoryUpdate.get(userDataInt, userData);
+				startMenu();
+				break;
 
-		case "4":
-			System.out.println("Add serie-ID you want to delete : ");
-			userDataInt = scan.nextInt();
-			SerieRepositoryI serieRepositoryDelete = new SerieRepository();
-			serieRepositoryDelete.delete(userDataInt);
-			scan.close();
-			break;
+			case "4":
+				System.out.println("Add serie-ID you want to delete : ");
+				userDataInt = scan.nextInt();
+				SerieRepositoryI serieRepositoryDelete = new SerieRepository();
+				serieRepositoryDelete.delete(userDataInt);
+				startMenu();
+				break;
 
-		case "5":
-			System.out.println("Write a letter to search : ");
-			userData = scan.nextLine();
-			SerieRepositoryI serieRepositorySearch = new SerieRepository();
-			serieRepositorySearch.searchSerie(userData);
-			scan.close();
-			break;
+			case "5":
+				System.out.println("Write a letter to search : ");
+				userData = scan.nextLine();
+				SerieRepositoryI serieRepositorySearch = new SerieRepository();
+				serieRepositorySearch.searchSerie(userData);
+				startMenu();
+				break;
 
-		case "6":
-			System.out.println("Write a category to search series : ");
-			userData = scan.nextLine();
-			CategoryRepositoryI categoryRepositorySearchSerie = new CategoryRepository();
-			categoryRepositorySearchSerie.searchSerieByCategory(userData);
-			scan.close();
-			break;
-		case "7":
-			System.out.println("Bye");
-			System.exit(0);
-		default:
-			break;
+			case "6":
+				System.out.println("Write a category to search series : ");
+				userData = scan.nextLine();
+				CategoryRepositoryI categoryRepositorySearchSerie = new CategoryRepository();
+				categoryRepositorySearchSerie.searchSerieByCategory(userData);
+				startMenu();
+				break;
+			case "7":
+				scan.close();
+				System.out.println("Bye");
+				isRunning = false;
+			default:
+				break;
+			}
 		}
-
 	}
 }
