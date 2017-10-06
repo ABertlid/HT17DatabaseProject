@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
@@ -12,6 +13,13 @@ import com.anneli.entity.Rating;
 import com.anneli.entity.Serie;
 
 public class CategoryRepository implements CategoryRepositoryI {
+	
+	private SessionFactory factory = new Configuration().configure()
+			.addAnnotatedClass(Serie.class)
+			.addAnnotatedClass(Category.class)
+			.addAnnotatedClass(Rating.class)
+			.buildSessionFactory();
+	private Session session = factory.getCurrentSession();
 
 	@Override
 	public Category get(int primaryKey) {
@@ -51,9 +59,6 @@ public class CategoryRepository implements CategoryRepositoryI {
 	public List<Category> searchSerieByCategory(String userInput) {
 
 		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Category.class)
-					.addAnnotatedClass(Serie.class).addAnnotatedClass(Rating.class).buildSessionFactory().openSession();
-
 			session.beginTransaction();
 
 			String query = "from Category where type LIKE :type";

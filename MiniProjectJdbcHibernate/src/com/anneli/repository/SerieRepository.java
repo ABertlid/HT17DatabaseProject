@@ -1,11 +1,13 @@
 package com.anneli.repository;
 
+
 import java.util.List;
 
 import javax.persistence.StoredProcedureQuery;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.anneli.entity.Category;
@@ -14,13 +16,14 @@ import com.anneli.entity.Serie;
 
 public class SerieRepository implements SerieRepositoryI {
 
+	private SessionFactory factory = new Configuration().configure().addAnnotatedClass(Serie.class)
+			.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory();
+	private Session session = factory.getCurrentSession();
+
 	@Override
 	public Serie get(int primaryKey, String update) {
 
 		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Serie.class)
-					.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
 			session.beginTransaction();
 
 			Serie theSerie = session.get(Serie.class, primaryKey);
@@ -42,10 +45,6 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> getAll() {
 
 		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Serie.class)
-					.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
-
 			session.beginTransaction();
 
 			StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
@@ -70,37 +69,29 @@ public class SerieRepository implements SerieRepositoryI {
 	public void add(String userInput) {
 
 		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Serie.class)
-					.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
-
 			session.beginTransaction();
 
 			Serie tempSerie = new Serie(userInput);
 			session.save(tempSerie);
 			session.getTransaction().commit();
 			close(session);
-			
-		} catch (HibernateException ex) {
-			throw new HibernateException("ERROR " + ex.getStackTrace());
-		}
 
+		} catch (HibernateException e) {
+			throw new HibernateException("Duplicate insert");
+		}
 	}
 
 	@Override
 	public void delete(int userInput) {
 
 		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Serie.class)
-					.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
-
 			session.beginTransaction();
 
 			Serie theSerie = session.get(Serie.class, userInput);
 			session.delete(theSerie);
 			session.getTransaction().commit();
 			close(session);
+			
 		} catch (HibernateException ex) {
 			throw new HibernateException("ERROR " + ex.getStackTrace());
 		}
@@ -110,10 +101,6 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> searchSerie(String userInput) {
 
 		try {
-			Session session = new Configuration().configure().addAnnotatedClass(Serie.class)
-					.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory()
-					.openSession();
-
 			session.beginTransaction();
 
 			String searchIndex = userInput + "%";

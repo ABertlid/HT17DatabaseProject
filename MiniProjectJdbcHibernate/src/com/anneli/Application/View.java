@@ -11,10 +11,9 @@ public class View {
 
 	private String userData;
 	private int userDataInt;
+	private Scanner scan = new Scanner(System.in);
 
 	public void startMenu() {
-
-		Scanner scan = new Scanner(System.in);
 
 		System.out.println("--- MENU ---");
 		System.out.println("1. Create and add new Serie in database? ");
@@ -23,10 +22,17 @@ public class View {
 		System.out.println("4. Delete data in database? ");
 		System.out.println("5. Search for serie in database? ");
 		System.out.println("6. Search for category and series in database? ");
+		System.out.println("7. Exit ");
 
-		String choice = scan.nextLine();
+		String choiceFromUser = scan.nextLine();
+		
+		choice(choiceFromUser);
 
-		switch (choice) {
+	}
+
+	public void choice(String action) {
+
+		switch (action) {
 		case "1":
 			System.out.println("Add serie : ");
 			userData = scan.nextLine();
@@ -75,9 +81,12 @@ public class View {
 			categoryRepositorySearchSerie.searchSerieByCategory(userData);
 			scan.close();
 			break;
-
+		case "7":
+			System.out.println("Bye");
+			System.exit(0);
 		default:
 			break;
 		}
+
 	}
 }
