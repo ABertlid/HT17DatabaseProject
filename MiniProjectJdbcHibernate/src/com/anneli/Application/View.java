@@ -11,9 +11,10 @@ public class View {
 
 	private String userData;
 	private int userDataInt;
-	private Scanner scan = new Scanner(System.in);
+	private Scanner scan;
 
 	public void startMenu() {
+		scan = new Scanner(System.in);
 
 		System.out.println("--- MENU ---");
 		System.out.println("1. Create and add new Serie in database? ");
@@ -84,10 +85,10 @@ public class View {
 				categoryRepositorySearchSerie.searchSerieByCategory(userData);
 				startMenu();
 				break;
-			case "7":
-				scan.close();
+			case "7":			
 				System.out.println("Bye");
 				isRunning = false;
+				scan.close();
 			default:
 				break;
 			}

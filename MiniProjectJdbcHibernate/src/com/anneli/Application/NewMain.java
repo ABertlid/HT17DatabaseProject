@@ -5,19 +5,19 @@ import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class NewMain extends Application {
+public class NewMain  {
 
 	public static void main(String[] args) {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		launch(args);
+		//launch();
 		
-		//View view = new View();
-		//view.startMenu();
+		View view = new View();
+		view.startMenu();
 	}
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	//@Override
+	/*public void start(Stage primaryStage) throws Exception {
 		new ViewGraphic(primaryStage);
 
-	}
+	}*/
 
 }

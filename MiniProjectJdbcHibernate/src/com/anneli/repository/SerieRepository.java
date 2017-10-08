@@ -8,17 +8,13 @@ import javax.persistence.StoredProcedureQuery;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
-import com.anneli.entity.Category;
-import com.anneli.entity.Rating;
 import com.anneli.entity.Serie;
 
 public class SerieRepository implements SerieRepositoryI {
 
-	private SessionFactory factory = new Configuration().configure().addAnnotatedClass(Serie.class)
-			.addAnnotatedClass(Category.class).addAnnotatedClass(Rating.class).buildSessionFactory();
-	private Session session = factory.getCurrentSession();
+	private SessionFactory sessionFactory = Factory.getInstance();
+	private Session session = sessionFactory.getCurrentSession();
 
 	@Override
 	public Serie get(int primaryKey, String update) {
@@ -45,6 +41,7 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> getAll() {
 
 		try {
+			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
@@ -69,6 +66,7 @@ public class SerieRepository implements SerieRepositoryI {
 	public void add(String userInput) {
 
 		try {
+			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			Serie tempSerie = new Serie(userInput);
@@ -85,6 +83,7 @@ public class SerieRepository implements SerieRepositoryI {
 	public void delete(int userInput) {
 
 		try {
+			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			Serie theSerie = session.get(Serie.class, userInput);
@@ -132,7 +131,7 @@ public class SerieRepository implements SerieRepositoryI {
 
 	private void close(Session session) {
 
-		session.getSessionFactory().close();
+		//session.getSessionFactory().close();
 		session.close();
 	}
 
