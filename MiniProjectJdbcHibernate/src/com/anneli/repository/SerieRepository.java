@@ -1,6 +1,5 @@
 package com.anneli.repository;
 
-
 import java.util.List;
 
 import javax.persistence.StoredProcedureQuery;
@@ -41,7 +40,6 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> getAll() {
 
 		try {
-			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
@@ -66,7 +64,6 @@ public class SerieRepository implements SerieRepositoryI {
 	public void add(String userInput) {
 
 		try {
-			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			Serie tempSerie = new Serie(userInput);
@@ -83,14 +80,13 @@ public class SerieRepository implements SerieRepositoryI {
 	public void delete(int userInput) {
 
 		try {
-			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			Serie theSerie = session.get(Serie.class, userInput);
 			session.delete(theSerie);
 			session.getTransaction().commit();
 			close(session);
-			
+
 		} catch (HibernateException ex) {
 			throw new HibernateException("ERROR " + ex.getStackTrace());
 		}
@@ -131,7 +127,6 @@ public class SerieRepository implements SerieRepositoryI {
 
 	private void close(Session session) {
 
-		//session.getSessionFactory().close();
 		session.close();
 	}
 
