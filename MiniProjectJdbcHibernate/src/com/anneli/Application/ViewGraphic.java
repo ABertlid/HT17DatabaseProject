@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,10 +17,10 @@ public class ViewGraphic {
 	private VBox vBox;
 	private HBox hBoxButton;
 	private Button addButton;
-	private Button changeButton;
+	private Button updateButton;
 	private Button deleteButton;
 	private Button showButton;
-	// private TableView tableView = new TableView();
+	private TableView tableView = new TableView();
 
 	public ViewGraphic(Stage primaryStage) {
 		this.window = primaryStage;
@@ -40,19 +41,18 @@ public class ViewGraphic {
 		bottomText.setStyle("-fx-border-color: black");
 
 		addButton = new Button("Add");
-		changeButton = new Button("Change");
+		updateButton = new Button("Update");
 		deleteButton = new Button("Delete");
 		showButton = new Button("Show table");
-		hBoxButton = new HBox(10, addButton, changeButton, deleteButton, showButton);
+		hBoxButton = new HBox(10, addButton, updateButton, deleteButton, showButton);
 		hBoxButton.setAlignment(Pos.CENTER);
 
-		vBox = new VBox(10, userInput, hBoxButton, bottomText);
+		vBox = new VBox(10, userInput, hBoxButton, bottomText, tableView);
 		vBox.setAlignment(Pos.TOP_CENTER);
 		vBox.setPadding(new Insets(10));
 
-		Scene scene = new Scene(vBox, 500, 500);
+		Scene scene = new Scene(vBox, 800, 500);
 		window.setScene(scene);
 		window.show();
 	}
 }
-

@@ -132,7 +132,7 @@ public class SerieRepository implements SerieRepositoryI {
 	}
 	public void closeFactory() {
 
-		sessionFactory.close();
+		sessionFactory.close();	
 	}
 
 }
