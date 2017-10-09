@@ -11,12 +11,11 @@ public class View {
 
 	private String userData;
 	private int userDataInt;
-	private Scanner scan;
+	private Scanner scan = new Scanner(System.in);
 
 	public void startMenu() {
-		scan = new Scanner(System.in);
-
-		System.out.println("--- MENU ---");
+		
+		System.out.println("\n--- MENU ---");
 		System.out.println("1. Create and add new Serie in database? ");
 		System.out.println("2. Read all data in database? ");
 		System.out.println("3. Update some data in database? ");
@@ -25,17 +24,17 @@ public class View {
 		System.out.println("6. Search for category and series in database? ");
 		System.out.println("7. Exit ");
 
-		String choiceFromUser = scan.nextLine();
-
-		choice(choiceFromUser);
+		choice();
 
 	}
 
-	public void choice(String action) {
-		boolean isRunning = true;
+	private void choice() {
+	
+		boolean isRunning = false;
 
-		while (isRunning) {
-			switch (action) {
+		while (!isRunning) {
+			String choiceFromUser = scan.nextLine();
+			switch (choiceFromUser) {
 			case "1":
 				System.out.println("Add serie : ");
 				userData = scan.nextLine();
@@ -85,13 +84,23 @@ public class View {
 				categoryRepositorySearchSerie.searchSerieByCategory(userData);
 				startMenu();
 				break;
-			case "7":			
-				System.out.println("Bye");
-				isRunning = false;
-				scan.close();
+			case "7":	
+				exitProgram(isRunning);	
+				break;
 			default:
 				break;
 			}
 		}
+	}
+	private void exitProgram(boolean exit) {
+		
+		scan.close();
+		System.out.println("Scanner closed");
+		
+		SerieRepository serieRepositoryClose = new SerieRepository();
+		serieRepositoryClose.closeFactory();		
+		System.out.println("Factory closed");
+		
+		System.exit(0);		
 	}
 }

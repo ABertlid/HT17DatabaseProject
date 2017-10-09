@@ -40,6 +40,7 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> getAll() {
 
 		try {
+			System.out.println(sessionFactory.hashCode() + " = SF");
 			session.beginTransaction();
 
 			StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
@@ -128,6 +129,10 @@ public class SerieRepository implements SerieRepositoryI {
 	private void close(Session session) {
 
 		session.close();
+	}
+	public void closeFactory() {
+
+		sessionFactory.close();
 	}
 
 }
