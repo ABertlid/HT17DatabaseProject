@@ -63,8 +63,7 @@ public class CategoryRepository implements CategoryRepositoryI {
 
 			String query = "from Category where type LIKE :type";
 
-			@SuppressWarnings("unchecked")
-			List<Category> theCategories = session.createQuery(query).setParameter("type", userInput).getResultList();
+			List<Category> theCategories = session.createQuery(query, Category.class).setParameter("type", userInput).getResultList();
 
 			displayCategory(theCategories);
 

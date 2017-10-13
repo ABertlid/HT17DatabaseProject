@@ -6,19 +6,17 @@ import javax.persistence.StoredProcedureQuery;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import com.anneli.entity.Serie;
 
 public class SerieRepository implements SerieRepositoryI {
 
-	private SessionFactory sessionFactory = Factory.getInstance();
-	private Session session = sessionFactory.getCurrentSession();
 
 	@Override
 	public Serie get(int primaryKey, String update) {
-
+		
 		try {
+			Session session = factory();
 			session.beginTransaction();
 
 			Serie theSerie = session.get(Serie.class, primaryKey);
@@ -40,7 +38,8 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> getAll() {
 
 		try {
-			System.out.println(sessionFactory.hashCode() + " = SF");
+			Session session = factory();
+			System.out.println(Factory.getInstance().hashCode() + " = SF");
 			session.beginTransaction();
 
 			StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
@@ -65,6 +64,7 @@ public class SerieRepository implements SerieRepositoryI {
 	public void add(String userInput) {
 
 		try {
+			Session session = factory();
 			session.beginTransaction();
 
 			Serie tempSerie = new Serie(userInput);
@@ -81,6 +81,7 @@ public class SerieRepository implements SerieRepositoryI {
 	public void delete(int userInput) {
 
 		try {
+			Session session = factory();
 			session.beginTransaction();
 
 			Serie theSerie = session.get(Serie.class, userInput);
@@ -97,15 +98,15 @@ public class SerieRepository implements SerieRepositoryI {
 	public List<Serie> searchSerie(String userInput) {
 
 		try {
+			Session session = factory();
 			session.beginTransaction();
 
 			String searchIndex = userInput + "%";
 
 			String query = "from Serie where title LIKE :title";
 
-			@SuppressWarnings("unchecked")
-			List<Serie> theSeries = session.createQuery(query).setParameter("title", searchIndex).getResultList();
-
+			List<Serie> theSeries = session.createQuery(query, Serie.class).setParameter("title", searchIndex).getResultList();
+			
 			displaySerie(theSeries);
 
 			session.getTransaction().commit();
@@ -117,6 +118,11 @@ public class SerieRepository implements SerieRepositoryI {
 			throw new HibernateException("ERROR " + ex.getStackTrace());
 		}
 
+	}
+
+	private Session factory() {
+		Session session = Factory.getInstance().getCurrentSession();
+		return session;
 	}
 
 	private void displaySerie(List<Serie> theSeries) {
@@ -132,7 +138,7 @@ public class SerieRepository implements SerieRepositoryI {
 	}
 	public void closeFactory() {
 
-		sessionFactory.close();	
+		Factory.getInstance().close();	
 	}
 
 }

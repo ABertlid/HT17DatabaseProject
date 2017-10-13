@@ -25,7 +25,6 @@ public class View {
 		System.out.println("7. Exit ");
 
 		choice();
-
 	}
 
 	private void choice() {
