@@ -2,10 +2,12 @@ package com.anneli.Application;
 
 import java.util.logging.Level;
 
+import com.anneli.view.ViewGraphic;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class NewMainGraphic extends Application {
+public class SerieLibraryGraphic extends Application {
 
 	public static void main(String[] args) {
 

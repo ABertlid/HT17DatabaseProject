@@ -1,14 +1,14 @@
-package com.anneli.repository;
+package com.anneli.repository.model;
 
 import java.util.List;
 
-import com.anneli.entity.Category;
+import com.anneli.entity.model.Category;
 
 public interface CategoryRepositoryI {
 
 	Category get(int primaryKey);
 
-	void getAll();
+	List<Category> getAll();
 
 	List<Category> searchSerieByCategory(String uString);
 }

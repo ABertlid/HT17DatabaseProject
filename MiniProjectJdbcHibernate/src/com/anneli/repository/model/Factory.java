@@ -1,11 +1,11 @@
-package com.anneli.repository;
+package com.anneli.repository.model;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.anneli.entity.Category;
-import com.anneli.entity.Rating;
-import com.anneli.entity.Serie;
+import com.anneli.entity.model.Category;
+import com.anneli.entity.model.Rating;
+import com.anneli.entity.model.Serie;
 
 public class Factory {
 

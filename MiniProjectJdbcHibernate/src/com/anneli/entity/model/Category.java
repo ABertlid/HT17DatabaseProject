@@ -1,4 +1,4 @@
-package com.anneli.entity;
+package com.anneli.entity.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -62,7 +62,8 @@ public class Category implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Category " + series.toString() + "";
+		return series.toString();
+					
 	}
 
 }

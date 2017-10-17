@@ -1,8 +1,8 @@
-package com.anneli.repository;
+package com.anneli.repository.model;
 
 import java.util.List;
 
-import com.anneli.entity.Serie;
+import com.anneli.entity.model.Serie;
 
 public interface SerieRepositoryI {
 
@@ -15,4 +15,6 @@ public interface SerieRepositoryI {
 	void delete(int uInt);
 
 	List<Serie> searchSerie(String uString);
+
+	void closeFactory();
 }

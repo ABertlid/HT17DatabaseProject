@@ -1,4 +1,4 @@
-package com.anneli.entity;
+package com.anneli.entity.model;
 
 import java.io.Serializable;
 
@@ -70,6 +70,7 @@ public class Serie implements Serializable {
 	public String toString() {
 		String result = String.format("%1$-5s %2$-30s %3$-20s %4$s", serieId, title, myConnect.getType(),
 				myEvaluate.getRating());
+		
 		return result;
 	}
 

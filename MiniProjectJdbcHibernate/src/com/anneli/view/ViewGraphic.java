@@ -1,6 +1,5 @@
-package com.anneli.Application;
+package com.anneli.view;
 
-import com.anneli.entity.Serie;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,7 +21,7 @@ public class ViewGraphic {
 	private Button updateButton;
 	private Button deleteButton;
 	private Button showButton;
-	private TableView<Serie> tableView = new TableView();
+	private TableView tableView = new TableView();
 
 	public ViewGraphic(Stage primaryStage) {
 		this.window = primaryStage;
