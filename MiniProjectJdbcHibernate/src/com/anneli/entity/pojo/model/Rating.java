@@ -12,11 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.anneli.repository.model.EntityCRUD;
 
 @Entity
 @Table(name = "ratings")
-public class Rating extends EntityCRUD<Rating> implements Serializable {
+public class Rating implements Serializable {
 	private static final long serialVersionUID = -2652523004112845176L;
 
 	@Id

@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.anneli.entity.pojo.model.Category;
 import com.anneli.entity.pojo.model.Serie;
-import com.anneli.repository.model.CategoryRepositoryI;
-import com.anneli.repository.model.RatingRepositoryI;
-import com.anneli.repository.model.SerieRepositoryI;
+import com.anneli.repository.model.RepositoryI;
 import com.anneli.view.ConsoleReader;
 import com.anneli.view.View;
 
@@ -14,18 +12,13 @@ public class Controller {
 
 	private ConsoleReader reader;
 	private View view;
-	private SerieRepositoryI serieRepository;
-	private CategoryRepositoryI categoryRepository;
-	private RatingRepositoryI ratingRepository;
+	private RepositoryI repository;
 
-	public Controller(ConsoleReader reader, View view, SerieRepositoryI serieRepository,
-			CategoryRepositoryI categoryRepository, RatingRepositoryI ratingRepository) {
+	public Controller(ConsoleReader reader, View view, RepositoryI repository) {
 
 		this.reader = reader;
 		this.view = view;
-		this.serieRepository = serieRepository;
-		this.categoryRepository = categoryRepository;
-		this.ratingRepository = ratingRepository;
+		this.repository = repository;
 
 	}
 
@@ -87,7 +80,7 @@ public class Controller {
 		List<Category> categoryList;
 		view.displaySerieByCategory();
 		userData = reader.stringInputFromUser();
-		categoryList = categoryRepository.searchSerieByCategory(userData);
+		categoryList = repository.searchSerieByCategory(userData);
 		display(categoryList);
 	}
 
@@ -96,7 +89,7 @@ public class Controller {
 		List<Serie> serieList;
 		view.displaySearchSerie();
 		userData = reader.stringInputFromUser();
-		serieList = serieRepository.searchSerie(userData);
+		serieList = repository.searchSerie(userData);
 		display(serieList);
 	}
 
@@ -104,7 +97,7 @@ public class Controller {
 		int userDataInt;
 		view.displayDelete();
 		userDataInt = reader.intInputFromUser();
-		serieRepository.delete(userDataInt);
+		repository.deleteSerie(userDataInt);
 	}
 
 	private void updateSerieInDatabase() {
@@ -114,13 +107,13 @@ public class Controller {
 		userDataInt = reader.intInputFromUser();
 		view.displayUpdateSerie();
 		userData = reader.stringInputFromUser();
-		serieRepository.get(userDataInt, userData);
+		repository.updateSerie(userDataInt, userData);
 	}
 
 	private void readAllInDatabase() {
 		List<Serie> serieList;
 		view.displayAll();
-		serieList = serieRepository.getAll();
+		serieList = repository.getAllInDatabase();
 		display(serieList);
 	}
 
@@ -128,7 +121,7 @@ public class Controller {
 		String userData;
 		view.displayAdd();
 		userData = reader.stringInputFromUser();
-		serieRepository.add(userData);
+		repository.addSerie(userData);
 	}
 
 	private <T> void display(List<T> list) {
@@ -141,9 +134,7 @@ public class Controller {
 
 		private ConsoleReader newReader;
 		private View newView;
-		private SerieRepositoryI newSerieRepository;
-		private CategoryRepositoryI newCategoryRepository;
-		private RatingRepositoryI newRatingRepository;
+		private RepositoryI newRepository;
 
 		public ControllerBuilder setNewReader(ConsoleReader newReader) {
 			this.newReader = newReader;
@@ -155,24 +146,14 @@ public class Controller {
 			return this;
 		}
 
-		public ControllerBuilder setNewSerieRepository(SerieRepositoryI newSerieRepository) {
-			this.newSerieRepository = newSerieRepository;
-			return this;
-		}
-
-		public ControllerBuilder setNewCategoryRepository(CategoryRepositoryI newCategoryRepository) {
-			this.newCategoryRepository = newCategoryRepository;
-			return this;
-		}
-
-		public ControllerBuilder setNewRatingRepository(RatingRepositoryI newRatingRepository) {
-			this.newRatingRepository = newRatingRepository;
+		public ControllerBuilder setNewRepository(RepositoryI newRepository) {
+			this.newRepository = newRepository;
 			return this;
 		}
 
 		public Controller create() {
 
-			return new Controller(newReader, newView, newSerieRepository, newCategoryRepository, newRatingRepository);
+			return new Controller(newReader, newView, newRepository);
 		}
 
 	}
@@ -181,13 +162,13 @@ public class Controller {
 
 		try {
 			reader.close();
+			repository.close();
+
 			view.exitScanner();
+			view.exitFactory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		serieRepository.closeFactory();
-		view.exitFactory();
 
 		System.exit(0);
 	}

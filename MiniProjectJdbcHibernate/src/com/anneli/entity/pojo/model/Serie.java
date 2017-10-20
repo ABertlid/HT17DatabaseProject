@@ -12,12 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.Table;
 
-import com.anneli.repository.model.EntityCRUD;
 
 @Entity
 @NamedStoredProcedureQuery(name = "all_series", procedureName = "all_series")
 @Table(name = "series")
-public class Serie extends EntityCRUD<Serie> implements Serializable {
+public class Serie implements Serializable {
 	private static final long serialVersionUID = 2918636636420848857L;
 
 	@Id
