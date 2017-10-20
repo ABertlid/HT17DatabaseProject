@@ -2,28 +2,27 @@ package com.anneli.view;
 
 import java.util.Scanner;
 
-public class Handler implements InputHandler {
+public class ConsoleReader implements Reader {
 	
 	private Scanner scan = new Scanner(System.in);
 
 	@Override
-	public String inputStringFromUser() {		
+	public String stringInputFromUser() {		
 		String input = scan.nextLine();		
 		
 		return input;
 	}
 
 	@Override
-	public int inputIntFromUser() {
+	public int intInputFromUser() {
 		int input = scan.nextInt();
 		
 		return input;
 	}
 
 	@Override
-	public void closeScanner() {
-		scan.close();
-		
+	public void close() throws Exception {
+
 	}
 
 }

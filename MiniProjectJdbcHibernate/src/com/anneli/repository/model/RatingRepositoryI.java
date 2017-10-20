@@ -1,5 +1,7 @@
 package com.anneli.repository.model;
 
-public interface RatingRepositoryI {
+public interface RatingRepositoryI{
+	//Testa
+	//<T> extends GeneralRepository<T>
 
 }

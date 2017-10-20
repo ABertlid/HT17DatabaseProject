@@ -2,7 +2,7 @@ package com.anneli.repository.model;
 
 import java.util.List;
 
-import com.anneli.entity.model.Category;
+import com.anneli.entity.pojo.model.Category;
 
 public interface CategoryRepositoryI {
 

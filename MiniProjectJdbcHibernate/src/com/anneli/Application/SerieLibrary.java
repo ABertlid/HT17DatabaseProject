@@ -9,7 +9,7 @@ import com.anneli.repository.model.RatingRepository;
 import com.anneli.repository.model.RatingRepositoryI;
 import com.anneli.repository.model.SerieRepository;
 import com.anneli.repository.model.SerieRepositoryI;
-import com.anneli.view.Handler;
+import com.anneli.view.ConsoleReader;
 import com.anneli.view.View;
 
 public class SerieLibrary {
@@ -17,13 +17,21 @@ public class SerieLibrary {
 	public static void main(String[] args) {
 		handleLogging();
 
-		Handler handler = new Handler();
+		ConsoleReader reader = new ConsoleReader();
 		View view = new View();
 		SerieRepositoryI serieRepository = new SerieRepository();
 		CategoryRepositoryI categoryRepository = new CategoryRepository();
 		RatingRepositoryI ratingRepository = new RatingRepository();
-
-		new Controller(handler, view, serieRepository, categoryRepository, ratingRepository).startProgram();
+		
+			new Controller.ControllerBuilder()
+				.setNewReader(reader)
+				.setNewView(view)
+				.setNewSerieRepository(serieRepository)
+				.setNewCategoryRepository(categoryRepository)
+				.setNewRatingRepository(ratingRepository)
+				.create()
+				.startProgram();
+		
 	}
 
 	public static void handleLogging() {

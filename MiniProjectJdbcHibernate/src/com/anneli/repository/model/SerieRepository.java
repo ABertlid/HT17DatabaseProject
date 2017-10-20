@@ -6,7 +6,7 @@ import javax.persistence.StoredProcedureQuery;
 
 import org.hibernate.Session;
 
-import com.anneli.entity.model.Serie;
+import com.anneli.entity.pojo.model.Serie;
 
 public class SerieRepository implements SerieRepositoryI {
 

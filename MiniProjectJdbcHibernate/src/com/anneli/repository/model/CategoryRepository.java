@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.anneli.entity.model.Category;
+import com.anneli.entity.pojo.model.Category;
 
 public class CategoryRepository implements CategoryRepositoryI {
 

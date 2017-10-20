@@ -1,5 +1,5 @@
 package com.anneli.repository.model;
 
-public class RatingRepository implements RatingRepositoryI {
+public class RatingRepository implements RatingRepositoryI{
 
 }

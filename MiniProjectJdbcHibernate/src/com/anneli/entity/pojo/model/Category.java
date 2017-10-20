@@ -1,4 +1,4 @@
-package com.anneli.entity.model;
+package com.anneli.entity.pojo.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.anneli.repository.model.EntityCRUD;
+
 @Entity
 @Table(name = "categories")
-public class Category implements Serializable {
+public class Category extends EntityCRUD<Category> implements Serializable {
 	private static final long serialVersionUID = 7687175411398320073L;
 
 	@Id

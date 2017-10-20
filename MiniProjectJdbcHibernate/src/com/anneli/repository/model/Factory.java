@@ -3,9 +3,9 @@ package com.anneli.repository.model;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.anneli.entity.model.Category;
-import com.anneli.entity.model.Rating;
-import com.anneli.entity.model.Serie;
+import com.anneli.entity.pojo.model.Category;
+import com.anneli.entity.pojo.model.Rating;
+import com.anneli.entity.pojo.model.Serie;
 
 public class Factory {
 
