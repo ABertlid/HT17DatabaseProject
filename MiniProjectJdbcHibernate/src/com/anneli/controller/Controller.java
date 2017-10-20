@@ -69,6 +69,7 @@ public class Controller {
 			case "7":
 				exitProgram(isRunning);
 				break;
+
 			default:
 				break;
 			}
@@ -105,6 +106,7 @@ public class Controller {
 		int userDataInt;
 		view.displayUpdateID();
 		userDataInt = reader.intInputFromUser();
+		reader.stringInputFromUser();
 		view.displayUpdateSerie();
 		userData = reader.stringInputFromUser();
 		repository.updateSerie(userDataInt, userData);

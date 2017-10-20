@@ -14,16 +14,16 @@ public class SerieLibrary {
 		handleLogging();
 
 		ConsoleReader reader = new ConsoleReader();
-		View view = new View();		
+		View view = new View();
 		RepositoryI repository = new Repository();
-		
-			new Controller.ControllerBuilder()
-				.setNewReader(reader)
-				.setNewView(view)
-				.setNewRepository(repository)
-				.create()
-				.startProgram();
-		
+
+		new Controller.ControllerBuilder()
+		.setNewReader(reader)
+		.setNewView(view)
+		.setNewRepository(repository)
+		.create()
+		.startProgram();
+
 	}
 
 	public static void handleLogging() {

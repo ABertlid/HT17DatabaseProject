@@ -11,7 +11,7 @@ import com.anneli.entity.pojo.model.Rating;
 import com.anneli.entity.pojo.model.Serie;
 
 public class Repository implements RepositoryI {
-	
+
 	private Session factory() {
 		Session session = Factory.getInstance().getCurrentSession();
 		return session;
@@ -25,9 +25,9 @@ public class Repository implements RepositoryI {
 
 	@Override
 	public Serie updateSerie(int primaryKey, String update) {
-		
+
 		Session session = startNewSessionBeginTransaction();
-		
+
 		Serie theSerie = session.get(Serie.class, primaryKey);
 
 		theSerie.setTitle(update);
@@ -53,7 +53,7 @@ public class Repository implements RepositoryI {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Serie> getAllInDatabase() {
-		
+
 		Session session = startNewSessionBeginTransaction();
 
 		StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
@@ -75,49 +75,49 @@ public class Repository implements RepositoryI {
 
 	@Override
 	public void addSerie(String userInput) {
-		
+
 		Session session = startNewSessionBeginTransaction();
 
 		Serie tempSerie = new Serie(userInput);
 		session.save(tempSerie);
 		session.getTransaction().commit();
 		close(session);
-		
+
 	}
 
 	@Override
 	public void addCategory(String uString) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addRating(double uDouble) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteSerie(int userInput) {
-		
+
 		Session session = startNewSessionBeginTransaction();
 
 		Serie theSerie = session.get(Serie.class, userInput);
 		session.delete(theSerie);
 		session.getTransaction().commit();
 		close(session);
-		
+
 	}
 
 	@Override
 	public void deleteCategory(int uInt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public List<Serie> searchSerie(String userInput) {
-		
+
 		Session session = startNewSessionBeginTransaction();
 
 		String searchIndex = userInput + "%";
@@ -141,9 +141,9 @@ public class Repository implements RepositoryI {
 
 	@Override
 	public List<Category> searchSerieByCategory(String userInput) {
-		
+
 		Session session = startNewSessionBeginTransaction();
-		
+
 		String query = "FROM Category WHERE type LIKE :type";
 
 		List<Category> theCategories = session.createQuery(query, Category.class).setParameter("type", userInput)
@@ -151,10 +151,10 @@ public class Repository implements RepositoryI {
 
 		session.getTransaction().commit();
 		close(session);
-		
+
 		return theCategories;
 	}
-	
+
 	private void close(Session session) {
 
 		session.close();
@@ -163,7 +163,7 @@ public class Repository implements RepositoryI {
 	@Override
 	public void close() throws Exception {
 		Factory.getInstance().close();
-		
+
 	}
 
 }
