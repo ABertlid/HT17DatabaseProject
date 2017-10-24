@@ -8,6 +8,12 @@ import com.anneli.repository.model.RepositoryI;
 import com.anneli.view.ConsoleReader;
 import com.anneli.view.View;
 
+
+/**
+ * Library for series or movies
+ * 
+ * @author Anneli
+ */
 public class SerieLibrary {
 
 	public static void main(String[] args) {
@@ -18,14 +24,17 @@ public class SerieLibrary {
 		RepositoryI repository = new Repository();
 
 		new Controller.ControllerBuilder()
-		.setNewReader(reader)
-		.setNewView(view)
-		.setNewRepository(repository)
-		.create()
-		.startProgram();
+				.setNewReader(reader)
+				.setNewView(view)
+				.setNewRepository(repository)
+				.create()
+				.startProgram();
 
 	}
 
+	/**
+	 * Disable the hibernate output
+	 */
 	public static void handleLogging() {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 	}

@@ -8,11 +8,23 @@ import com.anneli.repository.model.RepositoryI;
 import com.anneli.view.ConsoleReader;
 import com.anneli.view.View;
 
+/**
+ * Class uses for send data between the view and the model
+ * @author Anneli
+ *
+ */
 public class Controller {
 
 	private ConsoleReader reader;
 	private View view;
 	private RepositoryI repository;
+	
+	/**
+	 * Constructor
+	 * @param reader
+	 * @param view
+	 * @param repository
+	 */
 
 	public Controller(ConsoleReader reader, View view, RepositoryI repository) {
 
@@ -21,7 +33,9 @@ public class Controller {
 		this.repository = repository;
 
 	}
-
+	/**
+	 * Starts the program by calling the menu method in View class
+	 */
 	public void startProgram() {
 		view.startMenu();
 		crudAndSearchInDatabase();
@@ -38,6 +52,7 @@ public class Controller {
 			switch (choiceFromUser) {
 			case "1":
 				addSerieInDatabase();
+				readAllSeriesAfterUpdate();
 				startProgram();
 				break;
 
@@ -48,11 +63,13 @@ public class Controller {
 
 			case "3":
 				updateSerieInDatabase();
+				readAllSeriesAfterUpdate();
 				startProgram();
 				break;
 
 			case "4":
 				deleteSerieInDatabase();
+				readAllSeriesAfterUpdate();
 				startProgram();
 				break;
 
@@ -74,6 +91,12 @@ public class Controller {
 				break;
 			}
 		}
+	}
+
+	private void readAllSeriesAfterUpdate() {
+		List<Serie> serieList;
+		serieList = repository.readAllSeries();
+		display(serieList);
 	}
 
 	private void searchByCategoryFindSerie() {
@@ -131,7 +154,11 @@ public class Controller {
 		list.stream().forEach(System.out::println);
 
 	}
-
+	/**
+	 * Builds the controller using builder pattern
+	 * @author Anneli
+	 *
+	 */
 	public static class ControllerBuilder {
 
 		private ConsoleReader newReader;

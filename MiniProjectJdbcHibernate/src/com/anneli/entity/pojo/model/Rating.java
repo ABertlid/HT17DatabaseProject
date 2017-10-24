@@ -12,7 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+/**
+ * Entity bean class represents table Rating from database
+ * 
+ * @author Anneli
+ *
+ */
 @Entity
 @Table(name = "ratings")
 public class Rating implements Serializable {
@@ -37,26 +42,57 @@ public class Rating implements Serializable {
 		this.rating = rating;
 	}
 
+	/**
+	 * Gets the primary key
+	 * 
+	 * @return the number of ratId
+	 */
 	public int getRatId() {
 		return ratId;
 	}
 
+	/**
+	 * Gets the rate
+	 * 
+	 * @return rating double
+	 */
 	public double getRating() {
 		return rating;
 	}
 
+	/**
+	 * Sets the primary key
+	 * 
+	 * @param ratId
+	 *            as an int
+	 */
 	public void setRatId(int ratId) {
 		this.ratId = ratId;
 	}
 
+	/**
+	 * Sets the rate
+	 * 
+	 * @param rating
+	 */
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
 
+	/**
+	 * Gets a list of type Serie
+	 * 
+	 * @return a list of series
+	 */
 	public List<Serie> getSeries() {
 		return series;
 	}
 
+	/**
+	 * Sets a serie type
+	 * 
+	 * @param series
+	 */
 	public void setSeries(List<Serie> series) {
 		this.series = series;
 	}

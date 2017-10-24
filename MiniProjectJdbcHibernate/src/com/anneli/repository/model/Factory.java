@@ -7,6 +7,12 @@ import com.anneli.entity.pojo.model.Category;
 import com.anneli.entity.pojo.model.Rating;
 import com.anneli.entity.pojo.model.Serie;
 
+/**
+ * Singleton class that creates one instance of hibernate session factory
+ * 
+ * @author Anneli
+ *
+ */
 public class Factory {
 
 	public static SessionFactory instance;

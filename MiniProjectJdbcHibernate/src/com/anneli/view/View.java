@@ -1,5 +1,11 @@
 package com.anneli.view;
 
+/**
+ * Simple class that only prints out text in the console
+ * 
+ * @author Anneli
+ *
+ */
 public class View {
 
 	public void startMenu() {

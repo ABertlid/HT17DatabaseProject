@@ -2,14 +2,20 @@ package com.anneli.repository.model;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 
 import org.hibernate.Session;
 
 import com.anneli.entity.pojo.model.Category;
-import com.anneli.entity.pojo.model.Rating;
 import com.anneli.entity.pojo.model.Serie;
 
+/**
+ * Class that handle hibernate sessions. Implements CRUD interface
+ * 
+ * @author Anneli
+ *
+ */
 public class Repository implements RepositoryI {
 
 	private Session factory() {
@@ -23,6 +29,10 @@ public class Repository implements RepositoryI {
 		return session;
 	}
 
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes the query
+	 * for an update
+	 */
 	@Override
 	public Serie updateSerie(int primaryKey, String update) {
 
@@ -38,19 +48,10 @@ public class Repository implements RepositoryI {
 		return theSerie;
 	}
 
-	@Override
-	public Category updateCategory(int primaryKey, String uString) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Rating updateRating(int primaryKey, double uDouble) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes a stored
+	 * procedure for all data in database
+	 */
 	@Override
 	public List<Serie> getAllInDatabase() {
 
@@ -58,7 +59,7 @@ public class Repository implements RepositoryI {
 
 		StoredProcedureQuery allSeries = session.createStoredProcedureQuery("all_series", Serie.class);
 
-		allSeries.execute();
+		@SuppressWarnings("unchecked")
 		List<Serie> series = allSeries.getResultList();
 
 		session.getTransaction().commit();
@@ -67,12 +68,31 @@ public class Repository implements RepositoryI {
 		return series;
 	}
 
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes the query
+	 * for reading one column in database
+	 */
 	@Override
-	public List<Category> getAllCategories() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Serie> readAllSeries() {
+		Session session = startNewSessionBeginTransaction();
+
+		String query = "select title from Serie";
+
+		Query serie = session.createQuery(query);
+
+		@SuppressWarnings("unchecked")
+		List<Serie> series = serie.getResultList();
+
+		session.getTransaction().commit();
+		close(session);
+
+		return series;
 	}
 
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes the query
+	 * for saving a new row in database
+	 */
 	@Override
 	public void addSerie(String userInput) {
 
@@ -85,18 +105,10 @@ public class Repository implements RepositoryI {
 
 	}
 
-	@Override
-	public void addCategory(String uString) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addRating(double uDouble) {
-		// TODO Auto-generated method stub
-
-	}
-
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes the query
+	 * for deleting a row in database
+	 */
 	@Override
 	public void deleteSerie(int userInput) {
 
@@ -109,12 +121,10 @@ public class Repository implements RepositoryI {
 
 	}
 
-	@Override
-	public void deleteCategory(int uInt) {
-		// TODO Auto-generated method stub
-
-	}
-
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes the query
+	 * for searching data in database
+	 */
 	@Override
 	public List<Serie> searchSerie(String userInput) {
 
@@ -133,12 +143,10 @@ public class Repository implements RepositoryI {
 		return theSeries;
 	}
 
-	@Override
-	public List<Category> searchCategory(String uString) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/**
+	 * Starts a new hibernate session, transaction and commit. Executes the query
+	 * for searching data in database
+	 */
 	@Override
 	public List<Category> searchSerieByCategory(String userInput) {
 
@@ -160,6 +168,9 @@ public class Repository implements RepositoryI {
 		session.close();
 	}
 
+	/**
+	 * Closes the session factory
+	 */
 	@Override
 	public void close() throws Exception {
 		Factory.getInstance().close();
